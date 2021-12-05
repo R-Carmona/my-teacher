@@ -1,0 +1,441 @@
+<!doctype html>
+<html class="no-js" lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>myTeacher</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- <link rel="manifest" href="site.webmanifest"> -->
+	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/css/magnific-popup.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/themify-icons.css">
+	<link rel="stylesheet" href="/css/nice-select.css">
+	<link rel="stylesheet" href="/css/flaticon.css">
+	<link rel="stylesheet" href="/css/gijgo.css">
+	<link rel="stylesheet" href="/css/animate.css">
+	<link rel="stylesheet" href="/css/slicknav.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mystyle.css">
+
+
+	<!-- <link rel="stylesheet" href="css/responsive.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+		integrity="sha384-3Nqiqht3ZZEO8FKj7GR1upiI385J92VwWNLj+FqHxtLYxd9l+WYpeqSOrLh0T12c" crossorigin="anonymous">
+	</script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+
+			$('#delete-modal').on('show.bs.modal', function (event) {
+				var button = $(event.relatedTarget);
+				var data = button.data('id');
+
+				var modal = $(this);
+
+				var a = modal.find('.modal-body a')[0];
+				a.href = a.href + data;
+
+			});
+
+
+			$('#teacher-modal').on('show.bs.modal', function (event) {
+				var button = $(event.relatedTarget);
+				var data = button.data('id');
+
+				var modal = $(this);
+
+				var a = modal.find('.modal-body a')[0];
+				a.href = a.href + data;
+
+			});
+
+
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<!-- header-start -->
+	<header>
+		<div class="header-area ">
+			<div id="sticky-header" class="main-header-area">
+				<div class="container-fluid p-0">
+					<div class="row align-items-center no-gutters">
+						<div class="col-xl-1 col-lg-1">
+							<div class="logo-img">
+								<a href="/index.html"> <img src="/img/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="col-xl-9 col-lg-9">
+							<div class="main-menu  d-none d-lg-block">
+								<nav>
+									<ul id="navigation">
+
+										<li><a href="/admin/admin.html" class="active">Usuarios</a></li>
+
+										<li><a href="/admin/listteachers.html">Profesores</a></li>
+
+										<li><a href="/admin/studyplan.html">Planes</a></li>
+
+										<li><a href="/admin/role.html">Roles</a></li>
+
+										<li><a href="/admin/roleuser.html">Permisos</a></li>
+
+										<li><a href="/admin/lesson.html">Clases</a></li>
+
+										<li><a href="/admin/userstudyplan.html">Planes de
+												Estudio</a></li>
+
+										<li><a href="/user/user.html">Mi Usuario</a></li>
+
+
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<div class="col-xl-2 col-lg-2 d-none d-lg-block">
+							<div class="log_chat_area d-flex align-items-center">
+								<a href="/logout" class="login"> <i class="flaticon-user"></i>
+									<span id="spanLogin">Salir</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- header-end -->
+
+	<!-- bradcam_area_start -->
+	<div class="bradcam_area breadcam_bg overlay2">
+		<h3>Lista de Usuarios</h3>
+	</div>
+	<!-- bradcam_area_end -->
+
+	<!-- Table-Start -->
+	<div id="listUserTableAdmin" class="row">
+		<div class="table-responsive ">
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+
+						<th scope="col">Id</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellidos</th>
+						<th scope="col">Dirección</th>
+						<th scope="col">Teléfono</th>
+						<th scope="col">NºDocumento</th>
+						<th scope="col">Correo</th>
+						<th scope="col">Clave</th>
+						<th scope="col">Nº de Cuenta</th>
+						<th scope="col">Fecha de Registro</th>
+						<th scope="col">Habilitado</th>
+						<th scope="col">Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="listUser:${listUser}">
+
+						<td th:text="${listUser.userid}"></td>
+						<td th:text="${listUser.name}"></td>
+						<td th:text="${listUser.surname}"></td>
+						<td th:text="${listUser.address}"></td>
+						<td th:text="${listUser.phone}"></td>
+						<td th:text="${listUser.dniNie}"></td>
+						<td th:text="${listUser.mail}"></td>
+						<td>*****</td>
+						<td th:text="${listUser.bankaccountnumber}"></td>
+						<td th:text="${listUser.registrationdate}"></td>
+						<td th:text="${listUser.enabled}"></td>
+
+						<td th:switch="${listUser.enabled==1}" class="operation">
+							<a th:href="@{admin/edit/user/{id}(id=${listUser.userid})}"
+								class="btn btn-primary">Editar</a>
+							<button th:case="true" type="button" class="btn btn-danger" data-toggle="modal"
+								data-target="#delete-modal" th:data-id="${listUser.userid}">Deshabilitar</button>
+							<a th:case="false" th:href="@{/admin/disabled/user/{id}(id=${listUser.userid})}"
+								class="btn btn-success btn-enabled">Habilitar</a>
+							<button type="button" class="btn btn-warning btn-teacher" data-toggle="modal"
+								data-target="#teacher-modal" th:data-id="${listUser.userid}">Convertir a
+								Profesor</button>
+						</td>
+
+
+
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- Table-End -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" data-backdrop="false">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Deshabilitar Usuario</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body">
+					<p>¿Está usted seguro de deshabilitar este usuario?</p>
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<a href="/admin/disabled/user/" class="btn btn-danger">Sí</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal-End -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="teacher-modal" tabindex="-1" role="dialog" data-backdrop="false">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Comvertir a Profesor</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body">
+					<p>¿Está usted seguro en convertir a este usuario en profesor?</p>
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<a href="/admin/add/teacher/" class="btn btn-danger">Sí</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal-End -->
+
+	<!-- Modal Teacher -->
+	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" data-backdrop="false">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Editar Usuario</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<h3 class="text-center text-white pt-5">Edit User</h3>
+						<div class="containerRegister">
+							<div id="login-row" class="row justify-content-center align-items-center">
+								<div id="login-column" class="col-md-6 row justify-content-center align-items-center">
+									<div id="login-box" class="col-md-12 ">
+
+
+										<form th:action="@{/edit/user.html}" id="edit-form" name="edit-form"
+											class="form" action="#" th:object="${userForm}" method="post">
+
+
+											<br>
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{name}" name="name" id="name"
+													class="form-control"
+													pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
+													placeholder="Nombre" title="Mínimo 2 letras y máximo 64."
+													required />
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{surname}" name="surname" id="surname"
+													class="form-control"
+													pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
+													placeholder="Apellidos" title="Mínimo 2 letras y máximo 64."
+													required />
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{address}" name="address" id="address"
+													class="form-control" placeholder="Dirección">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{dniNie}" name="document" id="document"
+													class="form-control" placeholder="Nº Documento"
+													pattern="[XYZxyz]{0,1}[0-9]{7,8}[A-Za-z]{1}"
+													title="Debe poner su DNI/NIE">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{phone}" name="tel" id="tel"
+													placeholder="Teléfono" class="form-control" pattern="[0-9]{9}"
+													title="Debe poner 9 números.">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{bankaccountnumber}" name="iban" id="iban"
+													placeholder="IBAN" class="form-control"
+													pattern="[A-Za-z]{2}[0-9]{22}"
+													title="Debe poner 2 letras y 22 números.">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="email" th:field="*{mail}" name="correo" id="correo"
+													class="form-control"
+													pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+													placeholder="Correo Electrónico" required />
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="password" th:field="*{password}" id="password"
+													class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+													min="8" maxlength="32" placeholder="Clave" required
+													title="Debe contener, numeros, letras (minusculas y mayúsculas y signos">
+											</div>
+											<br>
+
+											<div class="form-group">
+												<input type="submit" id="register" name="register"
+													class="btn btn-info btn-md" value="Registrar">
+											</div>
+
+											<br>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal - User -End -->
+
+	<!-- footer -->
+	<footer class="footer footer_bg_1">
+		<div class="footer_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-4 col-md-6 col-lg-4">
+						<div class="footer_widget">
+							<div class="footer_logo">
+								<a href="/index.html"> <img src="/img/logo.png" alt="">
+								</a>
+							</div>
+							<p>Proyecto para el final de grado de Desarrollo de
+								Aplicaciones Multiplataforma, se ha usado diversas tecnologías,
+								entre ellas, JAVA, SPRING FRAMEWORK, BOOTSTRAP, HTML5 y más
+								tecnologías susyacentes de JAVA, como el uso de MAVEN, JPA,
+								HIBERNATE, etc...</p>
+							<div class="socail_links">
+								<ul>
+									<li><a href="#"> <i class="ti-facebook"></i>
+										</a></li>
+									<li><a href="#"> <i class="ti-twitter-alt"></i>
+										</a></li>
+									<li><a href="#"> <i class="fab fa-instagram-square"></i>
+										</a></li>
+									<li><a href="#"> <i class="fab fa-youtube-square"></i>
+										</a></li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-6 col-lg-3">
+						<div class="footer_widget">
+							<h3 class="footer_title">Diercción:</h3>
+							<p>
+								I.E.S. De Alquerías<br> Calle Francisco José Vicente Ortega
+								<br> +34 968 81 05 54 <br> 30580 Alquerías <a href="http://www.iesdealquerias.es/"
+									target="black">
+									http://www.iesdealquerias.es/ </a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copy-right_text">
+			<div class="container">
+				<div class="footer_border"></div>
+				<div class="row">
+					<div class="col-xl-12">
+						<p class="copy_right text-center">
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright 2020 All rights reserved | This template is made with <i class="fa fa-heart-o"
+								aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer -->
+
+	<!-- JS here -->
+	<script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/isotope.pkgd.min.js"></script>
+	<script src="/js/ajax-form.js"></script>
+	<script src="/js/waypoints.min.js"></script>
+	<script src="/js/jquery.counterup.min.js"></script>
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<script src="/js/scrollIt.js"></script>
+	<script src="/js/jquery.scrollUp.min.js"></script>
+	<script src="/js/wow.min.js"></script>
+	<script src="/js/nice-select.min.js"></script>
+	<script src="/js/jquery.slicknav.min.js"></script>
+	<script src="/js/jquery.magnific-popup.min.js"></script>
+	<script src="/js/plugins.js"></script>
+	<script src="/js/gijgo.min.js"></script>
+	<script src="/js/myjs.js"></script>
+
+	<!--contact js-->
+	<script src="/js/contact.js"></script>
+	<script src="/js/jquery.ajaxchimp.min.js"></script>
+	<script src="/js/jquery.form.js"></script>
+	<script src="/js/jquery.validate.min.js"></script>
+	<script src="/js/mail-script.js"></script>
+
+	<script src="/js/main.js"></script>
+
+	<!-- icons -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,420 @@
+<!doctype html>
+<html class="no-js" lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>myTeacher</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- <link rel="manifest" href="site.webmanifest"> -->
+	<link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/css/magnific-popup.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/themify-icons.css">
+	<link rel="stylesheet" href="/css/nice-select.css">
+	<link rel="stylesheet" href="/css/flaticon.css">
+	<link rel="stylesheet" href="/css/gijgo.css">
+	<link rel="stylesheet" href="/css/animate.css">
+	<link rel="stylesheet" href="/css/slicknav.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mystyle.css">
+
+
+	<!-- <link rel="stylesheet" href="css/responsive.css"> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+		integrity="sha384-3Nqiqht3ZZEO8FKj7GR1upiI385J92VwWNLj+FqHxtLYxd9l+WYpeqSOrLh0T12c" crossorigin="anonymous">
+
+	</script>
+
+
+
+</head>
+
+<body>
+	<!-- header-start -->
+	<header>
+		<div class="header-area ">
+			<div id="sticky-header" class="main-header-area">
+				<div class="container-fluid p-0">
+					<div class="row align-items-center no-gutters">
+						<div class="col-xl-2 col-lg-2">
+							<div class="logo-img">
+								<a href="index.html"> <img src="/img/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="col-xl-7 col-lg-7">
+							<div class="main-menu  d-none d-lg-block">
+								<nav>
+									<ul id="navigation">
+
+										<li><a href="/user/user.html">Mis Clases</a></li>
+
+										<li><a href="/user/calendar.html">Calendario</a></li>
+
+										<li><a href="/user/profile.html" class="active">Mi Perfil</a></li>
+
+										<li><a href="/user/studyplan.html">Mis planes</a></li>
+
+										<li th:switch="${session.userAdmin==true}"><a th:case="true"
+												href="/admin/admin.html">Administrar
+												Servidor</a></li>
+
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-3 d-none d-lg-block">
+							<div class="log_chat_area d-flex align-items-center">
+
+								<a href="/logout" class="login"> <i class="flaticon-user"></i>
+									<span>Salir</span>
+								</a>
+								<div class="live_chat_btn">
+									<a class="boxed_btn_orange"
+										href="https://wa.me/+34692551318?text=Hola quisiera información referente a MyTeacher acerca de:">
+										<i class="fa fa-phone"></i> <span>+34 692 551 318</span>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="mobile_menu d-block d-lg-none"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- header-end -->
+
+	<!-- bradcam_area_start -->
+	<div class="bradcam_area breadcam_bg overlay2">
+		<h3>Perfil</h3>
+	</div>
+	<!-- bradcam_area_end -->
+
+	<!-- edit form column -->
+	<div class="row justify-content-md-center">
+
+		<div class="col-md-5 border-right border-left">
+			<div class="p-3 py-5">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h4 class="text-right">Datos Usuario</h4>
+					<span class="text-right" th:text="${session.user.registrationdate}">Fecha</span>
+					<span th:switch="${session.user.enabled==1}"> <i th:case="true">Habilitado</i> <i
+							th:case="false">Deshabilitado</i>
+					</span>
+				</div>
+
+
+				<form action="/user/profile.html" th:object="${userEditForm}" id="profile-form" class="form"
+					method="post">
+
+					<div class="row mt-3">
+						<div class="col-md-2">
+							<label class="labels">ID Usuario</label><input th:value="${session.user.userid}" type="text"
+								readonly="readonly" class="form-control">
+						</div>
+						<div class="col-md-4">
+							<label class="labels">Nombre</label>
+							<input type="text" name="name" id="name" class="form-control"
+								th:value="${session.user.name}"
+								pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
+								placeholder="Nombre" title="Mínimo 2 letras y máximo 64." required />
+						</div>
+
+						<div class="col-md-6">
+							<label class="labels">Apellidos</label><input type="text" class="form-control" value=""
+								placeholder="Apellidos" th:value="${session.user.surname}">
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-7">
+							<label class="labels">Dirección</label><input type="text" class="form-control"
+								placeholder="enter address" th:value="${session.user.address}">
+						</div>
+						<div class="col-md-5">
+							<label class="labels">Número Teléfono</label><input type="text" class="form-control"
+								placeholder="Número de Teléfono" th:value="${session.user.phone}">
+						</div>
+
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<label class="labels">Documento de Identidad</label><input type="text" class="form-control"
+								placeholder="country" th:value="${session.user.dniNie}">
+						</div>
+						<div class="col-md-6">
+							<label class="labels">Número de Cuenta</label><input type="text" class="form-control"
+								placeholder="state" th:value="${session.user.bankaccountnumber}">
+						</div>
+					</div>
+
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<label class="labels">Email</label><input type="text" class="form-control"
+								placeholder="Email" th:value="${session.user.mail}">
+						</div>
+						<div class="col-md-6">
+							<label class="labels">Repita su Email si modifica</label><input type="text"
+								class="form-control" placeholder="Email">
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<label class="labels">Password</label><input type="text" class="form-control"
+								placeholder="Password">
+						</div>
+						<div class="col-md-6">
+							<label class="labels">Repita su Password si modifica</label><input type="text"
+								class="form-control" placeholder="Password">
+						</div>
+					</div>
+
+
+					<div class="mt-5 text-center">
+						<button class="btn btn-primary profile-button" type="submit" name="submit">Guardar
+							Datos</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!-- edit form column -->
+
+	<!-- Modal User -->
+	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" data-backdrop="false">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Editar Usuario</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<h3 class="text-center text-white pt-5">Edit User</h3>
+						<div class="containerRegister">
+							<div id="login-row" class="row justify-content-center align-items-center">
+								<div id="login-column" class="col-md-6 row justify-content-center align-items-center">
+									<div id="login-box" class="col-md-12 ">
+
+
+										<form th:action="@{/edit/user.html}" id="edit-form" name="edit-form"
+											class="form" action="#" th:object="${userForm}" method="post">
+
+
+											<br>
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{name}" name="name" id="name"
+													class="form-control"
+													pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
+													placeholder="Nombre" title="Mínimo 2 letras y máximo 64."
+													required />
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{surname}" name="surname" id="surname"
+													class="form-control"
+													pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
+													placeholder="Apellidos" title="Mínimo 2 letras y máximo 64."
+													required />
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{address}" name="address" id="address"
+													class="form-control" placeholder="Dirección">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{dniNie}" name="document" id="document"
+													class="form-control" placeholder="Nº Documento"
+													pattern="[XYZxyz]{0,1}[0-9]{7,8}[A-Za-z]{1}"
+													title="Debe poner su DNI/NIE">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{phone}" name="tel" id="tel"
+													placeholder="Teléfono" class="form-control" pattern="[0-9]{9}"
+													title="Debe poner 9 números.">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="text" th:field="*{bankaccountnumber}" name="iban" id="iban"
+													placeholder="IBAN" class="form-control"
+													pattern="[A-Za-z]{2}[0-9]{22}"
+													title="Debe poner 2 letras y 22 números.">
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="email" th:field="*{mail}" name="correo" id="correo"
+													class="form-control"
+													pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+													placeholder="Correo Electrónico" required />
+											</div>
+											<br>
+
+											<div class="col-xl-12 col-md-12">
+												<input type="password" th:field="*{password}" id="password"
+													class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+													min="8" maxlength="32" placeholder="Clave" required
+													title="Debe contener, numeros, letras (minusculas y mayúsculas y signos">
+											</div>
+											<br>
+
+											<div class="form-group">
+												<input type="submit" id="register" name="register"
+													class="btn btn-info btn-md" value="Registrar">
+											</div>
+
+											<br>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal - User -End -->
+
+
+
+
+	<!-- footer -->
+	<footer class="footer footer_bg_1">
+		<div class="footer_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-4 col-md-6 col-lg-4">
+						<div class="footer_widget">
+							<div class="footer_logo">
+								<a href="index.html"> <img src="/img/logo.png" alt="">
+								</a>
+							</div>
+							<p>Proyecto para el final de grado de Desarrollo de
+								Aplicaciones Multiplataforma, se ha usado diversas tecnologías,
+								entre ellas, JAVA, SPRING FRAMEWORK, BOOTSTRAP, HTML5 y más
+								tecnologías susyacentes de JAVA, como el uso de MAVEN, JPA,
+								HIBERNATE, etc...</p>
+							<div class="socail_links">
+								<ul>
+									<li><a href="#"> <i class="ti-facebook"></i>
+										</a></li>
+									<li><a href="#"> <i class="ti-twitter-alt"></i>
+										</a></li>
+									<li><a href="#"> <i class="fab fa-instagram-square"></i>
+										</a></li>
+									<li><a href="#"> <i class="fab fa-youtube-square"></i>
+										</a></li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-6 col-lg-3">
+						<div class="footer_widget">
+							<h3 class="footer_title">Diercción:</h3>
+							<p>
+								I.E.S. De Alquerías<br> Calle Francisco José Vicente Ortega
+								<br> +34 968 81 05 54 <br> 30580 Alquerías <a href="http://www.iesdealquerias.es/"
+									target="black">
+									http://www.iesdealquerias.es/ </a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copy-right_text">
+			<div class="container">
+				<div class="footer_border"></div>
+				<div class="row">
+					<div class="col-xl-12">
+						<p class="copy_right text-center">
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright 2020 All rights reserved | This template is made with <i class="fa fa-heart-o"
+								aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer -->
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		var username = /*[[${session.user.name}]]*/ 'Nombre';
+		var userNameId = document.getElementById("name");
+		userNameId.value("Hola Papá");
+
+
+		/*]]>*/
+	</script>
+
+	<!-- JS here -->
+	<script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/isotope.pkgd.min.js"></script>
+	<script src="/js/ajax-form.js"></script>
+	<script src="/js/waypoints.min.js"></script>
+	<script src="/js/jquery.counterup.min.js"></script>
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<script src="/js/scrollIt.js"></script>
+	<script src="/js/jquery.scrollUp.min.js"></script>
+	<script src="/js/wow.min.js"></script>
+	<script src="/js/nice-select.min.js"></script>
+	<script src="/js/jquery.slicknav.min.js"></script>
+	<script src="/js/jquery.magnific-popup.min.js"></script>
+	<script src="/js/plugins.js"></script>
+	<script src="/js/gijgo.min.js"></script>
+	<script src="/js/myjs.js"></script>
+
+	<!--contact js-->
+	<script src="/js/contact.js"></script>
+	<script src="/js/jquery.ajaxchimp.min.js"></script>
+	<script src="/js/jquery.form.js"></script>
+	<script src="/js/jquery.validate.min.js"></script>
+	<script src="/js/mail-script.js"></script>
+
+	<script src="/js/main.js"></script>
+
+	<!-- icons -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+</body>
+
+</html>

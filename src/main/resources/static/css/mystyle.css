@@ -1,0 +1,131 @@
+
+.mapa iframe {
+    width: 100%;
+}
+
+.iframe {
+    border: 0;
+}
+
+
+#loginUser .containerLogin #login-row #login-column #login-box {
+ 
+  margin-top: 50px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+  text-align: center;
+}
+#loginUser .containerLogin #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#loginUser .containerLogin #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+#loginRegister .containerRegister #login-row #login-column #login-box {
+ 
+  margin-top: 30px;
+  max-width: 600px;
+  height: 45em;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#loginRegister .containerRegister #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#loginRegister .containerRegister #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+
+#spanLogin{
+	color: white;
+	padding-right: 2em;
+	padding-left: 1em;
+}
+
+.flaticon-user{
+	color: white;
+}
+
+#listUserTable{	
+	margin-left: 0em;
+	margin-right: 0em;
+}
+
+#listUserTableAdmin{	
+	margin-left: 0em;
+	margin-right: 0em;
+}
+
+.table{
+	text-align: center;
+}
+
+.classesAvailable{
+	color:  red;
+	font-size: 26px;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+#teacherId{
+	font-size: 26px;
+}
+
+
+#UserTable{
+	
+	font-size:1.2em;
+	margin: auto;
+	text-align:center;
+	background: #ffffff;
+	padding-right:0;
+	padding-left: 0;
+
+	}
+	
+.assessment{
+	background: white;
+	color: #3333cc;
+}
+
+.p_title{
+	color:white;
+	font-size: 2em;
+}
+
+select {   
+   font-size: 1.5em;   
+  
+}
+
+#purchasePlan{
+	background-color: black;
+	color: white;
+	font-size: 2em;
+
+}
+
+.btn-enabled{	
+	margin-left: 0.7em;
+	margin-right: 0.7em;		
+}
+
+.btn-teacher{	
+	font-size: 1em;
+}
+
+
+
+
+
+
